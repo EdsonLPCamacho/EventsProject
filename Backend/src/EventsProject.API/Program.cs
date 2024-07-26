@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.Extensions.Hosting;
+using EventsProject.API.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace EventsProject.API
 {
@@ -13,6 +11,15 @@ namespace EventsProject.API
 
             // Add services to the container.
             builder.Services.AddControllers();
+
+            // Configure DbContext with SQLite
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            Console.WriteLine($"Connection String: {connectionString}");
+            builder.Services.AddDbContext<DataContext>(options =>
+                options.UseSqlite(connectionString)
+                       .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
+            );
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
@@ -37,6 +44,13 @@ namespace EventsProject.API
             app.UseAuthorization();
 
             app.MapControllers();
+
+            // Ensure the database is created.
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+                dbContext.Database.EnsureCreated();
+            }
 
             app.Run();
         }
