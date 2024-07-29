@@ -1,6 +1,8 @@
+using EventsProject.API.Data;
 using EventsProject.API.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+
 
 namespace EventsProject.API.Controllers
 {
@@ -21,18 +23,27 @@ namespace EventsProject.API.Controllers
                     ImageURL = "/images/photo.png"
                 }
             };
-        public EventController() {}
+
+        private readonly DataContext _context;    
+        public EventController(DataContext context) {
+            _context = context;
+        }
 
         [HttpGet]
         public IEnumerable<Event> Get()
         {
-            return _event;
+            return _context.Events;
         }
 
         [HttpGet("{id}")]
-        public IEnumerable<Event> GetById(int id)
+        public IActionResult GetById(int id)
         {
-            return _event.Where(Event => Event.EventId == id);
+            var eventItem =  _context.Events.FirstOrDefault(e => e.EventId == id );
+            if(eventItem==null){
+                return NotFound();
+            }
+            return Ok(eventItem);
+        
         }
 
 
