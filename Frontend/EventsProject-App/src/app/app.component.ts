@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { EventsComponent } from "./events/events.component";
-import { SpeakerComponent } from "./speaker/speaker.component";
+import { EventsComponent } from './events/events.component'; // Ajuste o caminho conforme necessário
+import { SpeakerComponent } from './speaker/speaker.component'; // Corrija o caminho conforme necessário
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet, 
-    EventsComponent,
-    SpeakerComponent
-  ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  imports: [CommonModule, RouterOutlet, EventsComponent, SpeakerComponent] // Inclua SpeakerComponent aqui
 })
 export class AppComponent {
-  title = 'EventsProject-App';
+  title = 'My Angular App';
 }
