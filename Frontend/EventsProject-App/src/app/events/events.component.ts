@@ -2,14 +2,12 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-events',
   standalone: true,
   templateUrl: './events.component.html',
   styleUrls: ['./events.component.scss'],
-
-  
+  imports: [CommonModule]
 })
 export class EventsComponent implements OnInit {
   public events: any[] = [];
@@ -21,9 +19,12 @@ export class EventsComponent implements OnInit {
   }
 
   public getEvents(): void {
-    this.http.get<any[]>('https://localhost:5001/api/event').subscribe({
-      next: (response) => this.events = response,
-      error: (err) => console.error(err),
+    this.http.get<any[]>('http://localhost:5195/api/event').subscribe({
+      next: (response) => {
+        this.events = response;
+        console.log('Events:', this.events);  // Debug log to check if data is received
+      },
+      error: (err) => console.error('Error fetching events:', err),
       complete: () => console.log('Request complete')
     });
   }

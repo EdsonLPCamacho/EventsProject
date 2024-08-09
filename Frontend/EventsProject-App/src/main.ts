@@ -1,18 +1,18 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
-import { provideHttpClient } from '@angular/common/http';
-import { provideRouter, Routes } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { EventsComponent } from './app/events/events.component';
+import { appConfig } from './app/app.config'; // Importa a configuração do app
 
-const routes: Routes = [
+const routes = [
   { path: '', component: AppComponent },
   { path: 'events', component: EventsComponent }
 ];
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideHttpClient(),  // Fornece HttpClient
-    provideRouter(routes)
+    provideRouter(routes),
+    ...appConfig.providers 
   ]
 })
   .catch(err => console.error(err));
