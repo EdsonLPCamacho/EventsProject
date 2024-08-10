@@ -1,6 +1,9 @@
 <p>Events work!</p>
 
-<div *ngFor="let event of events">
+<div *ngFor="let event of events; let i = index">
+<div>
+  <strong>Event ID:</strong> {{ event.eventId }}
+</div>
   <div>
     <strong>Theme:</strong> {{ event.theme }}
   </div>
