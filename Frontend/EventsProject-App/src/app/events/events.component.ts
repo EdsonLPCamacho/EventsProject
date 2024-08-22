@@ -22,6 +22,7 @@ export class EventsComponent implements OnInit {
     this.http.get<any[]>('http://localhost:5195/api/event').subscribe({
       next: (response) => {        
         this.events = response;
+        console.log('Events:', this.events); 
       },
       error: (err) => console.error('Error fetching events:', err),    
     });

@@ -1,26 +1,39 @@
-<p>Events work!</p>
+<h3>Events</h3>
+<hr/>
+<form action="" class="form-inline">
+  <div class="form-group mb-2">
+    <input type="text" class="form-control mr-2" placeholder="Search">
+    <button class="btn btn-outline-success">Search</button>
+  </div>
+</form>
 
-<div *ngFor="let event of events; let i = index">
-<div>
-  <strong>Event ID:</strong> {{ event.eventId }}
-</div>
-  <div>
-    <strong>Theme:</strong> {{ event.theme }}
-  </div>
-  <div>
-    <strong>Local:</strong> {{ event.local }}
-  </div>
-  <div>
-    <strong>Event Time:</strong> {{ event.eventTime }}
-  </div>
-  <div>
-    <strong>People:</strong> {{ event.people }}
-  </div>
-  <div>
-    <strong>Lot:</strong> {{ event.lot }}
-  </div>
-  <div>
-    <strong>Image URL:</strong> <img [src]="event.imageURL" alt="Event Image" />
-  </div>
-  <hr>
-</div>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th>#</th>
+      <th>Image</th>
+      <th>Theme</th>
+      <th>Local</th>
+      <th>Date</th>
+      <th>People</th>
+      <th>Batch</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let event of events">
+      <td>{{ event.eventId }}</td> <!-- Event ID -->
+      <td><img [src]="event.imageURL" alt="Event Image" width="100"></td> <!-- Event Image -->
+      <td>{{ event.theme }}</td> <!-- Event Theme -->
+      <td>{{ event.local }}</td> <!-- Event Local -->
+      <td>{{ event.eventTime }}</td> <!-- Event Date -->
+      <td>{{ event.people }}</td> <!-- Event People -->
+      <td>{{ event.lot }}</td> <!-- Event Batch -->
+      <td>
+        <!-- Opções adicionais teste -->
+        <button class="btn btn-info">Details</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
