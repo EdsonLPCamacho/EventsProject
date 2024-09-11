@@ -1,9 +1,16 @@
 <h3>Events</h3>
 <hr/>
-<form action="" class="form-inline">
-  <div class="form-group mb-2">
-    <input type="text" class="form-control mr-2" placeholder="Search">
-    <button class="btn btn-outline-success">Search</button>
+<form action="">
+  <div class="form-group mb-2"> 
+    <input 
+    type="text" 
+    class="form-control mr-2" 
+    placeholder="Search here..."
+    name="searchInput"
+    [(ngModel)]="searchTerm"    
+    (input)="filterEvents()"
+    />
+
   </div>
 </form>
 
@@ -20,20 +27,26 @@
       <th>Options</th>
     </tr>
   </thead>
-  <tbody>
-    <tr *ngFor="let event of events">
-      <td>{{ event.eventId }}</td> <!-- Event ID -->
-      <td><img [src]="event.imageURL" alt="Event Image" width="100"></td> <!-- Event Image -->
-      <td>{{ event.theme }}</td> <!-- Event Theme -->
-      <td>{{ event.local }}</td> <!-- Event Local -->
-      <td>{{ event.eventTime }}</td> <!-- Event Date -->
-      <td>{{ event.people }}</td> <!-- Event People -->
-      <td>{{ event.lot }}</td> <!-- Event Batch -->
-      <td>
-        <!-- Opções adicionais teste -->
-        <button class="btn btn-info">Details</button>
-      </td>
+  <tbody *ngIf="events && events.length">
+    <tr *ngIf="events.length === 0">
+      <td colspan="8" class="text-center">No data found</td>
     </tr>
-  </tbody>
+      <tr *ngFor="let event of events">
+        <td>{{ event.eventId }}</td> <!-- Event ID -->
+        <td><img src="/assets/{{event.imageURL}}" alt="Event Image" width="100"></td>
+        <td>{{ event.theme }}</td> <!-- Event Theme -->
+        <td>{{ event.local }}</td> <!-- Event Local -->
+        <td>{{ event.eventTime }}</td> <!-- Event Date -->
+        <td>{{ event.people }}</td> <!-- Event People -->
+        <td>{{ event.lot }}</td> <!-- Event Batch -->
+        <td>
+          <div class="d-flex">
+            <button class="btn btn-info btn-sm w-100 mr-2">Edit</button>
+            <button class="btn btn-danger btn-sm w-100" >Delete</button>
+          </div>
+      
+        </td>
+      </tr>
+ 
 </table>
 
